@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Avijeet Shah | Full-Stack Portfolio</title>
+  <!-- Google Fonts & simple CSS reset -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #0a0c10;
+      font-family: 'Inter', sans-serif;
+      color: #e5e9f0;
+      line-height: 1.5;
+      padding: 2rem 1.5rem;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      background: #0f1117;
+      border-radius: 2rem;
+      box-shadow: 0 25px 45px -12px rgba(0, 0, 0, 0.6);
+      overflow: hidden;
+      border: 1px solid #242933;
+    }
+
+    .top-accent {
+      height: 4px;
+      background: linear-gradient(90deg, #ff7e5e, #feb47b, #6a11cb, #2575fc);
+      width: 100%;
+    }
+
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: 0.9fr 2fr;
+      gap: 0;
+    }
+
+    /* SIDEBAR */
+    .sidebar {
+      background: #0b0e14;
+      padding: 2rem 1.8rem;
+      border-right: 1px solid #202430;
+    }
+
+    .profile-pic-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 2rem;
+    }
+
+    .avatar-wrapper {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: #1e2436;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border: 3px solid #ff9a5e;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      transition: 0.2s ease;
+      cursor: pointer;
+    }
+
+    .avatar-wrapper img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .avatar-placeholder {
+      font-size: 3.5rem;
+      color: #8892b0;
+      text-align: center;
+      line-height: 1;
+    }
+
+    .upload-label {
+      margin-top: 12px;
+      background: #1e2a3a;
+      padding: 6px 14px;
+      border-radius: 40px;
+      font-size: 0.75rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: all 0.2s;
+      border: 1px solid #2d3a4b;
+    }
+
+    .upload-label:hover {
+      background: #2d3e55;
+      border-color: #ff9a5e;
+    }
+
+    .hide-input {
+      display: none;
+    }
+
+    h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      letter-spacing: -0.3px;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .sub {
+      text-align: center;
+      color: #9ca3af;
+      margin-bottom: 2rem;
+      font-size: 0.9rem;
+    }
+
+    .info-block {
+      margin: 1.8rem 0;
+    }
+
+    .info-block h3 {
+      font-size: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #ffb347;
+      margin-bottom: 1rem;
+      border-left: 3px solid #ff9a5e;
+      padding-left: 10px;
+    }
+
+    .skill-tag {
+      display: inline-block;
+      background: #1a1f2b;
+      padding: 6px 14px;
+      border-radius: 30px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin: 0.25rem 0.4rem 0.25rem 0;
+      border: 1px solid #2d3442;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0.8rem 0;
+      font-size: 0.9rem;
+      color: #cbd5e6;
+    }
+
+    .contact-item i {
+      width: 28px;
+      color: #ff9a5e;
+    }
+
+    /* CV ACTIONS with ANIMATED VIEW CV BUTTON */
+    .cv-actions {
+      margin-top: 2rem;
+      padding-top: 1rem;
+      border-top: 1px solid #262e3f;
+    }
+
+    .cv-buttons {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .btn-outline, .btn-primary {
+      background: transparent;
+      border: 1.5px solid #ff9a5e;
+      padding: 10px 0;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      cursor: pointer;
+      transition: 0.2s;
+      color: #ffd3b5;
+    }
+
+    .btn-primary {
+      background: #ff9a5e20;
+      border-color: #ff9a5e;
+      color: #ffd7b5;
+    }
+
+    .btn-primary:hover, .btn-outline:hover {
+      background: #ff9a5e30;
+      border-color: #ffb86b;
+      transform: translateY(-1px);
+    }
+
+    /* ATTRACTIVE ANIMATED VIEW CV BUTTON */
+    .btn-view-cv {
+      background: linear-gradient(135deg, #ff9a5e, #ff6a3d);
+      border: none;
+      color: white;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      box-shadow: 0 0 12px rgba(255, 106, 61, 0.4);
+      transition: all 0.3s ease;
+    }
+
+    .btn-view-cv::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.6s ease;
+      z-index: -1;
+    }
+
+    .btn-view-cv:hover::before {
+      left: 100%;
+    }
+
+    .btn-view-cv:hover {
+      transform: scale(1.02);
+      box-shadow: 0 0 20px rgba(255, 106, 61, 0.7);
+      letter-spacing: 1px;
+    }
+
+    .btn-view-cv i {
+      animation: bounceSoft 1.2s infinite;
+    }
+
+    @keyframes bounceSoft {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-3px); }
+    }
+
+    .cv-status {
+      font-size: 0.7rem;
+      color: #80cbc4;
+      text-align: center;
+      margin-top: 8px;
+      transition: all 0.2s;
+    }
+
+    /* MODAL STYLES FOR ATTRACTIVE CV PREVIEW */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      visibility: hidden;
+      opacity: 0;
+      transition: visibility 0.2s, opacity 0.3s ease;
+    }
+
+    .modal-overlay.active {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    .modal-container {
+      background: #0f1119;
+      width: 90%;
+      max-width: 550px;
+      border-radius: 2rem;
+      border: 1px solid #ff9a5e;
+      box-shadow: 0 30px 50px rgba(0,0,0,0.5), 0 0 0 2px rgba(255, 154, 94, 0.2);
+      transform: scale(0.9);
+      transition: transform 0.3s cubic-bezier(0.34, 1.2, 0.64, 1);
+      overflow: hidden;
+    }
+
+    .active .modal-container {
+      transform: scale(1);
+    }
+
+    .modal-header {
+      padding: 1.2rem 1.5rem;
+      background: linear-gradient(135deg, #1e2a3a, #0f1119);
+      border-bottom: 1px solid #ff9a5e;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .modal-header h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #ffd7b5;
+    }
+
+    .close-modal {
+      background: none;
+      border: none;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #ff9a5e;
+      transition: transform 0.2s;
+    }
+
+    .close-modal:hover {
+      transform: rotate(90deg);
+      color: #ff6a3d;
+    }
+
+    .modal-body {
+      padding: 2rem 1.8rem;
+      text-align: center;
+    }
+
+    .cv-preview-icon {
+      font-size: 5rem;
+      color: #ff9a5e;
+      margin-bottom: 1rem;
+      animation: float 2s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .cv-details {
+      background: #1a1f2b;
+      padding: 1rem;
+      border-radius: 1rem;
+      margin: 1.2rem 0;
+      word-break: break-word;
+    }
+
+    .cv-details p {
+      margin: 0.5rem 0;
+      font-size: 0.9rem;
+    }
+
+    .modal-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      margin-top: 1.5rem;
+    }
+
+    .modal-download-btn {
+      background: #ff9a5e;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: bold;
+      color: #0f1119;
+      cursor: pointer;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .modal-download-btn:hover {
+      background: #ffb86b;
+      transform: scale(1.03);
+      box-shadow: 0 4px 12px rgba(255, 154, 94, 0.4);
+    }
+
+    .no-cv-message {
+      color: #ffaa88;
+      padding: 1rem;
+    }
+
+    /* MAIN CONTENT */
+    .main-content {
+      padding: 2rem 2rem 2rem 2rem;
+      background: #0f1119;
+    }
+
+    .greeting {
+      margin-bottom: 2rem;
+    }
+
+    .greeting h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, #fff, #ffb97a);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .repo-section {
+      margin: 2rem 0;
+    }
+
+    .repo-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .repo-card {
+      background: #131823;
+      border-radius: 1.2rem;
+      padding: 1rem 1.2rem;
+      border: 1px solid #282f3f;
+      transition: all 0.2s;
+    }
+
+    .repo-card i {
+      color: #ffa45e;
+      margin-right: 8px;
+    }
+
+    .repo-title {
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    .repo-desc {
+      font-size: 0.75rem;
+      color: #8b99b0;
+      margin: 8px 0;
+    }
+
+    .lang-badge {
+      font-size: 0.7rem;
+      background: #20283a;
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 50px;
+      margin-top: 8px;
+    }
+
+    .contributions {
+      background: #0c0f16;
+      border-radius: 1.2rem;
+      padding: 1rem;
+      margin: 2rem 0;
+      border: 1px solid #232837;
+    }
+
+    .contribution-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .footer-note {
+      font-size: 0.7rem;
+      text-align: center;
+      margin-top: 2rem;
+      color: #6c7a91;
+      border-top: 1px solid #202532;
+      padding-top: 1.5rem;
+    }
+
+    @media (max-width: 780px) {
+      .portfolio-grid {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        border-right: none;
+        border-bottom: 1px solid #202430;
+      }
+      body {
+        padding: 1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="top-accent"></div>
+  <div class="portfolio-grid">
+    <!-- LEFT SIDEBAR -->
+    <aside class="sidebar">
+      <div class="profile-pic-section">
+        <div class="avatar-wrapper" id="avatarTrigger" title="Click to upload photo">
+          <img id="profileImage" src="" alt="Profile preview" style="display: none;">
+          <div id="avatarPlaceholder" class="avatar-placeholder">
+            <i class="fas fa-user-astronaut"></i>
+          </div>
+        </div>
+        <label class="upload-label" for="imageUploadInput">
+          <i class="fas fa-camera"></i> Upload Photo
+        </label>
+        <input type="file" id="imageUploadInput" class="hide-input" accept="image/jpeg, image/png, image/jpg">
+        <div style="font-size: 12px; margin-top: 6px;">Click avatar to change</div>
+      </div>
+      
+      <h2>Avijeet Shah</h2>
+      <div class="sub">I am a Full-stack Developer</div>
+
+      <div class="info-block">
+        <h3><i class="fas fa-code"></i> language</h3>
+        <div>
+          <span class="skill-tag">HTML5</span>
+          <span class="skill-tag">CSS3</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">React.js</span>
+          <span class="skill-tag">Node.js</span>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <h3><i class="fas fa-tools"></i> Tools</h3>
+        <div>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">GitHub</span>
+          <span class="skill-tag">Git</span>
+          <span class="skill-tag">Figma</span>
+        </div>
+      </div>
+
+      <div class="info-block">
+        <h3><i class="fas fa-address-card"></i> Contato</h3>
+        <div class="contact-item"><i class="fas fa-envelope"></i> avijeet305@portfolio.com</div>
+        <div class="contact-item"><i class="fab fa-whatsapp"></i> +977 9811092733</div>
+        <div class="contact-item"><i class="fab fa-github"></i> @avijeetshah</div>
+      </div>
+
+      <!-- CV Section with ATTRACTIVE ANIMATED VIEW CV button -->
+      <div class="cv-actions">
+        <h3><i class="fas fa-file-alt"></i> Curriculum Vitae</h3>
+        <div class="cv-buttons">
+          <label class="btn-outline" for="cvFileInput" style="cursor: pointer;">
+            <i class="fas fa-upload"></i> Upload CV (PDF/DOC)
+          </label>
+          <input type="file" id="cvFileInput" class="hide-input" accept=".pdf,.doc,.docx,application/pdf,application/msword,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+          
+          <button id="downloadCvBtn" class="btn-primary">
+            <i class="fas fa-download"></i> Download CV
+          </button>
+
+          <!-- NEW ATTRACTIVE ANIMATED VIEW CV BUTTON -->
+          <button id="viewCvBtn" class="btn-primary btn-view-cv">
+            <i class="fas fa-eye"></i> View CV with Animation
+          </button>
+          
+          <div id="cvStatusMsg" class="cv-status">No CV uploaded yet</div>
+        </div>
+        <div class="alert-msg">
+          <i class="fas fa-info-circle"></i> Upload your CV, then click "View CV with Animation"
+        </div>
+      </div>
+    </aside>
+
+    <!-- RIGHT MAIN CONTENT -->
+    <main class="main-content">
+      <div class="greeting">
+        <h1>Portfolio & Repositories</h1>
+        <p style="margin-top: 8px;">Full-stack developer passionate about modern interfaces and creative solutions. Check out my featured projects.</p>
+      </div>
+
+      <div class="repo-section">
+        <h3><i class="fab fa-github-alt"></i> Popular repositories</h3>
+        <div class="repo-grid">
+          <div class="repo-card">
+            <div><i class="fab fa-html5"></i><span class="repo-title"> C18</span></div>
+            <div class="repo-desc">Interactive dashboard with HTML/CSS/JS, integrated CV upload system.</div>
+            <span class="lang-badge">HTML • CSS</span>
+          </div>
+          <div class="repo-card">
+            <div><i class="fab fa-java"></i><span class="repo-title"> JAVA-JI</span></div>
+            <div class="repo-desc">Java OOP project, GUI with Swing and MVC pattern, visitor system.</div>
+            <span class="lang-badge">Java • Swing</span>
+          </div>
+          <div class="repo-card">
+            <div><i class="fab fa-python"></i><span class="repo-title"> ShoeManagementSystem</span></div>
+            <div class="repo-desc">Python inventory management, invoices, restocking, and CSV reports.</div>
+            <span class="lang-badge">Python</span>
+          </div>
+          <div class="repo-card">
+            <div><i class="fas fa-book"></i><span class="repo-title"> book_store</span></div>
+            <div class="repo-desc">Book store frontend (Avijeet collab) with cart and localStorage.</div>
+            <span class="lang-badge">JS • Tailwind</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="contributions">
+        <div class="contribution-header">
+          <span><i class="fas fa-chart-line"></i> <strong>18 contributions in the last year</strong></span>
+          <span style="font-size: 12px; background: #1e2538; padding: 4px 8px; border-radius: 30px;">2026</span>
+        </div>
+        <div style="margin: 16px 0 8px 0; display: flex; flex-wrap: wrap; gap: 6px; justify-content: space-between; align-items: center;">
+          <div style="display: flex; gap: 4px;">
+            <span style="background:#2d374b; width: 12px; height: 12px; border-radius: 2px;"></span>
+            <span style="background:#3c4b6e; width: 12px; height: 12px; border-radius: 2px;"></span>
+            <span style="background:#5975b6; width: 12px; height: 12px; border-radius: 2px;"></span>
+            <span style="background:#8bb3ff; width: 12px; height: 12px; border-radius: 2px;"></span>
+            <span style="font-size: 0.7rem; margin-left: 6px;">Less → More</span>
+          </div>
+          <div style="font-size: 0.7rem;">Jun 2025 - May 2026</div>
+        </div>
+        <div style="background: #070b10; border-radius: 12px; padding: 12px; margin-top: 6px;">
+          <div style="display: grid; grid-template-columns: repeat(26, 1fr); gap: 3px; overflow-x: auto;">
+            <script>for(let i=0;i<52;i++) document.write('<div style="background:#2d374b; height:12px; border-radius:2px;"></div>');</script>
+          </div>
+          <div class="footer-note" style="margin-top: 12px; border: none; text-align: left; font-size: 0.65rem;">
+            <i class="fas fa-info-circle"></i> Activity includes pushes, pull requests, and issue comments.
+          </div>
+        </div>
+        <div style="margin-top: 12px; font-size: 0.75rem; display: flex; gap: 16px; flex-wrap: wrap;">
+          <span><i class="fab fa-github"></i> 0 followers · 1 following</span>
+          <span><i class="fas fa-code-branch"></i> Customize your pins</span>
+        </div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-top: 1.2rem;">
+        <div>
+          <span class="skill-tag"><i class="fab fa-html5"></i> HTML5</span>
+          <span class="skill-tag"><i class="fab fa-css3-alt"></i> CSS3</span>
+          <span class="skill-tag"><i class="fab fa-js"></i> ES2022</span>
+          <span class="skill-tag"><i class="fab fa-git-alt"></i> Git flow</span>
+        </div>
+        <div style="color: #ffb347; font-size: 0.75rem;">
+          <i class="fas fa-code"></i> @avijeet · Envato Template
+        </div>
+      </div>
+      <div class="footer-note">
+        Interactive portfolio with image upload, CV upload, animated view CV and functional download.
+        <br>Source code on GitHub — <i class="fab fa-github"></i> avijeetshah/portfolio
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- MODAL FOR ATTRACTIVE CV PREVIEW WITH ANIMATION -->
+<div id="cvModal" class="modal-overlay">
+  <div class="modal-container">
+    <div class="modal-header">
+      <h3><i class="fas fa-file-alt"></i> Curriculum Vitae Preview</h3>
+      <button class="close-modal" id="closeModalBtn">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBodyContent">
+      <div class="cv-preview-icon">
+        <i class="fas fa-file-pdf"></i>
+      </div>
+      <div class="cv-details" id="cvPreviewDetails">
+        <p>Loading CV details...</p>
+      </div>
+      <div class="modal-buttons">
+        <button id="modalDownloadBtn" class="modal-download-btn">
+          <i class="fas fa-download"></i> Download CV
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ----- IMAGE UPLOAD feature
+    const imageInput = document.getElementById('imageUploadInput');
+    const profileImg = document.getElementById('profileImage');
+    const avatarPlaceholder = document.getElementById('avatarPlaceholder');
+    const avatarWrapper = document.getElementById('avatarTrigger');
+
+    function updateProfilePicture(file) {
+      if (file && (file.type === 'image/jpeg' || file.type === 'image/png' || file.type === 'image/jpg')) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          profileImg.src = e.target.result;
+          profileImg.style.display = 'block';
+          avatarPlaceholder.style.display = 'none';
+          localStorage.setItem('profileImageData', e.target.result);
+        };
+        reader.readAsDataURL(file);
+      } else if (file) {
+        alert('Please upload a valid image (JPEG or PNG).');
+      }
+    }
+
+    const savedImage = localStorage.getItem('profileImageData');
+    if (savedImage) {
+      profileImg.src = savedImage;
+      profileImg.style.display = 'block';
+      avatarPlaceholder.style.display = 'none';
+    }
+
+    imageInput.addEventListener('change', function(e) {
+      if (e.target.files && e.target.files[0]) {
+        updateProfilePicture(e.target.files[0]);
+      }
+    });
+
+    avatarWrapper.addEventListener('click', function() {
+      imageInput.click();
+    });
+
+    // ----- CV UPLOAD & STORAGE logic
+    const cvFileInput = document.getElementById('cvFileInput');
+    const downloadBtn = document.getElementById('downloadCvBtn');
+    const cvStatusSpan = document.getElementById('cvStatusMsg');
+    
+    let storedCvBlobUrl = null;
+    let currentCvFileName = null;
+    let currentCvFileBlob = null;  // store blob for modal preview info
+
+    function revokeOldCvUrl() {
+      if (storedCvBlobUrl) {
+        URL.revokeObjectURL(storedCvBlobUrl);
+        storedCvBlobUrl = null;
+      }
+    }
+
+    function handleCvUpload(file) {
+      if (!file) return;
+      const allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+      if (!allowedTypes.includes(file.type) && !file.name.match(/\.(pdf|doc|docx)$/i)) {
+        alert('Please upload a valid CV file (PDF, DOC, DOCX).');
+        return false;
+      }
+      
+      revokeOldCvUrl();
+      const blobUrl = URL.createObjectURL(file);
+      storedCvBlobUrl = blobUrl;
+      currentCvFileName = file.name;
+      currentCvFileBlob = file;
+      
+      const reader = new FileReader();
+      reader.onload = function(ev) {
+        try {
+          localStorage.setItem('cvBase64', ev.target.result);
+          localStorage.setItem('cvFileName', currentCvFileName);
+          localStorage.setItem('cvType', file.type);
+        } catch(e) { console.warn("LocalStorage capacity note", e); }
+      };
+      reader.readAsDataURL(file);
+      
+      cvStatusSpan.innerHTML = `✓ CV ready: ${currentCvFileName}`;
+      return true;
+    }
+    
+    function restoreCvFromLocalStorage() {
+      const base64Cv = localStorage.getItem('cvBase64');
+      const cvName = localStorage.getItem('cvFileName');
+      if (base64Cv && cvName) {
+        fetch(base64Cv)
+          .then(res => res.blob())
+          .then(blob => {
+            revokeOldCvUrl();
+            const newUrl = URL.createObjectURL(blob);
+            storedCvBlobUrl = newUrl;
+            currentCvFileName = cvName;
+            currentCvFileBlob = blob;
+            cvStatusSpan.innerHTML = `✓ CV restored: ${currentCvFileName}`;
+          })
+          .catch(() => {
+            localStorage.removeItem('cvBase64');
+            localStorage.removeItem('cvFileName');
+            cvStatusSpan.innerHTML = `No CV uploaded yet`;
+          });
+      } else {
+        cvStatusSpan.innerHTML = `No CV uploaded yet`;
+      }
+    }
+
+    cvFileInput.addEventListener('change', function(e) {
+      if (e.target.files && e.target.files[0]) {
+        handleCvUpload(e.target.files[0]);
+      }
+    });
+
+    downloadBtn.addEventListener('click', function() {
+      if (storedCvBlobUrl && currentCvFileName) {
+        const a = document.createElement('a');
+        a.href = storedCvBlobUrl;
+        a.download = currentCvFileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
+        alert('No CV uploaded yet. Please upload your CV first.');
+      }
+    });
+    
+    // ----- ATTRACTIVE ANIMATED VIEW CV MODAL
+    const modal = document.getElementById('cvModal');
+    const viewCvBtn = document.getElementById('viewCvBtn');
+    const closeModalBtn = document.getElementById('closeModalBtn');
+    const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+    const cvPreviewDetails = document.getElementById('cvPreviewDetails');
+
+    function openModalWithCV() {
+      if (!storedCvBlobUrl || !currentCvFileName) {
+        // Show stylish "No CV" message inside modal
+        cvPreviewDetails.innerHTML = `
+          <div class="no-cv-message">
+            <i class="fas fa-exclamation-triangle" style="font-size: 2rem;"></i>
+            <p style="margin-top: 12px;">No CV uploaded yet.</p>
+            <p>Please use the "Upload CV" button to add your Curriculum Vitae.</p>
+          </div>
+        `;
+        modal.classList.add('active');
+        return;
+      }
+      
+      // Determine file type display info
+      const fileExtension = currentCvFileName.split('.').pop().toUpperCase();
+      let fileIcon = '<i class="fas fa-file-pdf"></i>';
+      if (fileExtension === 'DOC' || fileExtension === 'DOCX') fileIcon = '<i class="fas fa-file-word"></i>';
+      
+      cvPreviewDetails.innerHTML = `
+        <p><strong>Document ready for preview</strong></p>
+        <p style="font-size: 0.9rem; margin: 8px 0;"><i class="fas fa-file"></i> ${currentCvFileName}</p>
+        <p><span class="skill-tag" style="background:#2d3e55;">${fileExtension} document</span></p>
+        <p style="margin-top: 12px; font-size:0.8rem; color:#aaa;">Click the button below to download and view full CV.</p>
+      `;
+      modal.classList.add('active');
+    }
+    
+    viewCvBtn.addEventListener('click', openModalWithCV);
+    
+    function closeModal() {
+      modal.classList.remove('active');
+    }
+    
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', function(e) {
+      if (e.target === modal) closeModal();
+    });
+    
+    modalDownloadBtn.addEventListener('click', function() {
+      if (storedCvBlobUrl && currentCvFileName) {
+        const a = document.createElement('a');
+        a.href = storedCvBlobUrl;
+        a.download = currentCvFileName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        closeModal();
+      } else {
+        alert('CV is not available for download.');
+      }
+    });
+    
+    window.addEventListener('beforeunload', function() {
+      if (storedCvBlobUrl) URL.revokeObjectURL(storedCvBlobUrl);
+    });
+    
+    restoreCvFromLocalStorage();
+  })();
+</script>
+</body>
+</html>
